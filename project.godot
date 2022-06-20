@@ -10,7 +10,8 @@ config_version=5
 
 [application]
 
-config/name="space-rocks"
+config/name="Space Rocks"
+run/main_scene="res://player.tscn"
 config/features=PackedStringArray("4.0", "Vulkan Clustered")
 config/icon="res://icon.png"
 

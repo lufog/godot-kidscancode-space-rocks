@@ -1,13 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://cclrv427foiba"]
+[gd_scene load_steps=5 format=3 uid="uid://cclrv427foiba"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_44qb7"]
 [ext_resource type="Texture2D" uid="uid://cxvf70lho0683" path="res://textures/player_ship.png" id="1_m3vb5"]
+[ext_resource type="PackedScene" uid="uid://w5inwxxqke3m" path="res://player_bullet.tscn" id="2_fulm0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oyar8"]
 radius = 27.074
 
 [node name="Player" type="Area2D"]
 script = ExtResource( "1_44qb7" )
+bullet_scene = ExtResource( "2_fulm0" )
 metadata/_edit_group_ = true
 
 [node name="Sprite" type="Sprite2D" parent="."]
@@ -17,3 +19,12 @@ texture = ExtResource( "1_m3vb5" )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5)
 shape = SubResource( "CircleShape2D_oyar8" )
+
+[node name="BulletContainer" type="Node" parent="."]
+
+[node name="MuzzlePosition" type="Position2D" parent="."]
+position = Vector2(0, -40)
+
+[node name="GunTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
