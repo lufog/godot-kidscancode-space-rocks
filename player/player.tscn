@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_2mhdh"]
+[ext_resource type="PackedScene" uid="uid://w5inwxxqke3m" path="res://player_bullet.tscn" id="2_t5mi5"]
+[ext_resource type="Texture2D" path="res://player/textures/player_ship.png" id="3_i0qwm"]
+
+[node name="Player" type="Area2D"]
+script = ExtResource("1_2mhdh")
+bullet_scene = ExtResource("2_t5mi5")
+metadata/_edit_group_ = true
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("3_i0qwm")
+
+[node name="BulletContainer" type="Node" parent="."]
+
+[node name="MuzzlePosition" type="Position2D" parent="."]
+position = Vector2(0, -40)
+
+[node name="GunTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true

@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://cyh5ttxwyir23"]
+
+[ext_resource type="Texture2D" uid="uid://bn5h2dtojyxop" path="res://asteroid/textures/meteor_big.png" id="1_g8uh8"]
+[ext_resource type="Script" path="res://asteroid/asteroid.gd" id="1_kl4a1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g04c1"]
+radius = 47.0106
+
+[sub_resource type="Curve" id="Curve_ayavf"]
+min_value = 1.0
+max_value = 5.0
+_data = [Vector2(0, 5), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_5uj1p"]
+curve = SubResource("Curve_ayavf")
+
+[sub_resource type="ParticlesMaterial" id="ParticlesMaterial_p6gsn"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = -10.0
+initial_velocity_max = 10.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+linear_accel_min = 100.0
+linear_accel_max = 200.0
+scale_curve = SubResource("CurveTexture_5uj1p")
+
+[node name="Asteroid" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_kl4a1")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_g8uh8")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_g04c1")
+
+[node name="EuffParticles" type="GPUParticles2D" parent="."]
+position = Vector2(35, 35)
+emitting = false
+amount = 32
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.1
+process_material = SubResource("ParticlesMaterial_p6gsn")

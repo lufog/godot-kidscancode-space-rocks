@@ -1,20 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://w5inwxxqke3m"]
+[gd_scene load_steps=3 format=3 uid="uid://w5inwxxqke3m"]
 
-[ext_resource type="Texture2D" uid="uid://bk55mxhanya81" path="res://textures/laser_blue.png" id="1_s1jty"]
 [ext_resource type="Script" path="res://player_bullet.gd" id="1_smk3c"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1xakd"]
-radius = 6.0
-height = 54.0
+[ext_resource type="Texture2D" uid="uid://bk55mxhanya81" path="res://textures/laser_blue.png" id="2_d11fg"]
 
 [node name="Bullet" type="Area2D"]
-script = ExtResource( "1_smk3c" )
+script = ExtResource("1_smk3c")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource( "1_s1jty" )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( "CapsuleShape2D_1xakd" )
+texture = ExtResource("2_d11fg")
 
 [node name="LifeTimer" type="Timer" parent="."]
 one_shot = true
