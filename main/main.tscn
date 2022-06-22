@@ -1,24 +1,36 @@
 [gd_scene load_steps=3 format=3 uid="uid://dv4n202nity35"]
 
 [ext_resource type="PackedScene" path="res://player/player.tscn" id="1_ntu04"]
-[ext_resource type="PackedScene" uid="uid://cyh5ttxwyir23" path="res://asteroid/asteroid.tscn" id="2_ye06y"]
+[ext_resource type="Script" path="res://main/main.gd" id="1_qky8q"]
 
 [node name="Main" type="Node"]
+script = ExtResource("1_qky8q")
 
 [node name="Player" parent="." instance=ExtResource("1_ntu04")]
 position = Vector2(503, 301)
 
-[node name="Asteroid" parent="." instance=ExtResource("2_ye06y")]
-position = Vector2(647, 404)
+[node name="SpawnLocations" type="Node" parent="."]
 
-[node name="Asteroid2" parent="." instance=ExtResource("2_ye06y")]
-position = Vector2(584, 157)
+[node name="1" type="Position2D" parent="SpawnLocations"]
+position = Vector2(70, 70)
 
-[node name="Asteroid3" parent="." instance=ExtResource("2_ye06y")]
-position = Vector2(317, 290)
+[node name="2" type="Position2D" parent="SpawnLocations"]
+position = Vector2(70, 300)
 
-[node name="Asteroid4" parent="." instance=ExtResource("2_ye06y")]
-position = Vector2(299, 117)
+[node name="3" type="Position2D" parent="SpawnLocations"]
+position = Vector2(70, 530)
 
-[node name="Asteroid5" parent="." instance=ExtResource("2_ye06y")]
-position = Vector2(465, 440)
+[node name="4" type="Position2D" parent="SpawnLocations"]
+position = Vector2(950, 70)
+
+[node name="5" type="Position2D" parent="SpawnLocations"]
+position = Vector2(950, 300)
+
+[node name="6" type="Position2D" parent="SpawnLocations"]
+position = Vector2(950, 530)
+
+[node name="7" type="Position2D" parent="SpawnLocations"]
+position = Vector2(505, 70)
+
+[node name="8" type="Position2D" parent="SpawnLocations"]
+position = Vector2(505, 530)

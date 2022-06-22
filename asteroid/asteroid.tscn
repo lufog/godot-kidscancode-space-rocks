@@ -1,10 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://cyh5ttxwyir23"]
 
-[ext_resource type="Texture2D" uid="uid://bn5h2dtojyxop" path="res://asteroid/textures/meteor_big.png" id="1_g8uh8"]
 [ext_resource type="Script" path="res://asteroid/asteroid.gd" id="1_kl4a1"]
+[ext_resource type="Texture2D" uid="uid://bdmfiqxy5xp2w" path="res://asteroid/textures/meteor_big_3.png" id="2_7cg4u"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_g04c1"]
-radius = 47.0106
+[sub_resource type="CircleShape2D" id="CircleShape2D_34v01"]
 
 [sub_resource type="Curve" id="Curve_ayavf"]
 min_value = 1.0
@@ -33,11 +32,10 @@ motion_mode = 1
 script = ExtResource("1_kl4a1")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("1_g8uh8")
+texture = ExtResource("2_7cg4u")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-visible = false
-shape = SubResource("CircleShape2D_g04c1")
+shape = SubResource("CircleShape2D_34v01")
 
 [node name="EuffParticles" type="GPUParticles2D" parent="."]
 position = Vector2(35, 35)
