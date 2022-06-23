@@ -8,6 +8,16 @@
 
 config_version=5
 
+_global_script_classes=[{
+"base": "CharacterBody2D",
+"class": &"Asteroid",
+"language": &"GDScript",
+"path": "res://asteroid/asteroid.gd"
+}]
+_global_script_class_icons={
+"Asteroid": ""
+}
+
 [application]
 
 config/name="Space Rocks"
