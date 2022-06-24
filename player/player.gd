@@ -14,6 +14,8 @@ var accel: Vector2
 @onready var bullet_container: Node = $BulletContainer
 @onready var muzzle: Position2D = $MuzzlePosition
 @onready var gun_timer: Timer = $GunTimer
+@onready var shoot_sound_player: AudioStreamPlayer = $ShootSoundPlayer
+@onready var exhaust_animated_sprite: AnimatedSprite2D = $ExhaustAnimatedSprite
 
 
 func _ready() -> void:
@@ -31,8 +33,10 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_pressed("thrust"):
 		accel = Vector2(thrust, 0).rotated(rotation - PI / 2)
+		exhaust_animated_sprite.show()
 	else:
 		accel = Vector2.ZERO
+		exhaust_animated_sprite.hide()
 	
 	accel += velocity * -friction
 	velocity += accel * delta
@@ -48,3 +52,4 @@ func _shoot() -> void:
 	bullet.global_position = muzzle.global_position
 	bullet.rotation = rotation
 	bullet_container.add_child(bullet)
+	shoot_sound_player.play()

@@ -1,0 +1,16 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOGGVorbis"
+uid="uid://vjr5x3pcm8ts"
+path="res://.godot/imported/simple_beat.ogg-b56adebb013ed842041b72a5f135afe4.oggvorbisstr"
+
+[deps]
+
+source_file="res://main/music/simple_beat.ogg"
+dest_files=["res://.godot/imported/simple_beat.ogg-b56adebb013ed842041b72a5f135afe4.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -2,10 +2,12 @@ extends Node
 
 
 var asteroid_scene: PackedScene = preload("res://asteroid/asteroid.tscn")
+var explosion_effect_scene: PackedScene = preload("res://asteroid/explosion_effect/explosion_effect.tscn")
 var break_pattern := { "big": "med", "med": "small", "small": "tiny", "tiny": null }
 
 @onready var spawn_locations: Node = $SpawnLocations
 @onready var asteroid_container: Node = $AsteroidContainer
+@onready var explosion_sound_player: AudioStreamPlayer = $ExplosionSoundPlayer
 
 
 func _ready() -> void:
@@ -33,3 +35,8 @@ func explode_asteroid(size: String, pos: Vector2, vel: Vector2, hit_dir: Vector2
 			var new_pos = pos + hit_dir.orthogonal().limit_length(25) * offset
 			var new_vel = vel + hit_dir.orthogonal() * offset
 			spawn_asteroid(new_size, new_pos, new_vel)
+	var explosion_effect := explosion_effect_scene.instantiate() as AnimatedSprite2D
+	add_child(explosion_effect)
+	explosion_effect.position = pos
+	explosion_effect.play()
+	explosion_sound_player.play()
