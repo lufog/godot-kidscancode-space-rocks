@@ -9,12 +9,15 @@ extends Area2D
 
 var velocity: Vector2
 var accel: Vector2
+var shield_level: float = Global.shield_max
+var shield_up: bool = true
 
 @onready var viewport_rect := get_viewport().get_visible_rect()
 @onready var bullet_container: Node = $BulletContainer
 @onready var muzzle: Position2D = $MuzzlePosition
 @onready var gun_timer: Timer = $GunTimer
 @onready var shoot_sound_player: AudioStreamPlayer = $ShootSoundPlayer
+@onready var shield_sprite: Sprite2D = $ShieldSprite
 @onready var exhaust_animated_sprite: AnimatedSprite2D = $ExhaustAnimatedSprite
 
 
@@ -23,6 +26,15 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if shield_up:
+		shield_level = min(shield_level + Global.shield_regen * delta, Global.shield_max)
+	
+	if shield_level <= 0 and shield_up:
+		shield_up = false
+		shield_level = 0
+		shield_sprite.hide()
+		
+	
 	if Input.is_action_pressed("shoot") and gun_timer.time_left == 0:
 		_shoot()
 	
@@ -44,6 +56,15 @@ func _process(delta: float) -> void:
 		wrapf(position.x + velocity.x * delta, 0, viewport_rect.size.x),
 		wrapf(position.y + velocity.y * delta, 0, viewport_rect.size.y)
 	)
+
+
+func _on_body_entered(body: Node2D) -> void:
+	if body is Asteroid:
+		if shield_up:
+			body.explode(velocity)
+			shield_level -= Global.asteroid_damage[body.size]
+		else:
+			Global.game_over = false
 
 
 func _shoot() -> void:

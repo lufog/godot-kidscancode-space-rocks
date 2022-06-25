@@ -68,4 +68,5 @@ func init(init_size: String, init_pos: Vector2, init_vel: Vector2) -> void:
 
 func explode(hit_dir: Vector2) -> void:
 	exploded.emit(size, position, velocity, hit_dir)
+	Global.score += Global.asteroid_poins[size] 
 	queue_free()

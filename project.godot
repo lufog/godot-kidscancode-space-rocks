@@ -25,6 +25,10 @@ run/main_scene="res://main/main.tscn"
 config/features=PackedStringArray("4.0", "Vulkan Clustered")
 config/icon="res://icon.png"
 
+[autoload]
+
+Global="*res://global.gd"
+
 [input]
 
 shoot={

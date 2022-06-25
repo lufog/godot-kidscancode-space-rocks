@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dxst8bobqx08b"]
+[gd_scene load_steps=11 format=3 uid="uid://dxst8bobqx08b"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_2mhdh"]
 [ext_resource type="PackedScene" uid="uid://boqmqy82ndagu" path="res://bullet/player_bullet.tscn" id="2_t5mi5"]
@@ -8,6 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://b3tn0y36cpgbq" path="res://player/textures/fire_1.png" id="6_ceh8j"]
 [ext_resource type="Texture2D" uid="uid://b8p5ylybswelj" path="res://player/textures/fire_2.png" id="7_80524"]
 [ext_resource type="Texture2D" uid="uid://bu4vgovo28vkq" path="res://player/textures/fire_3.png" id="7_h2gap"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yr0d7"]
+radius = 28.0713
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6vn73"]
 animations = [{
@@ -25,6 +28,11 @@ metadata/_edit_group_ = true
 [node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("3_i0qwm")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 5)
+shape = SubResource("CircleShape2D_yr0d7")
 
 [node name="BulletContainer" type="Node" parent="."]
 
@@ -48,3 +56,5 @@ scale = Vector2(0.6, 0.6)
 frames = SubResource("SpriteFrames_6vn73")
 frame = 1
 playing = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

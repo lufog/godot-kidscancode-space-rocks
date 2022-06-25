@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://bhkrl4ck0eb1v"]
+
+[ext_resource type="Script" path="res://hud.gd" id="1_2n027"]
+[ext_resource type="FontData" uid="uid://cb7prc7ubyfq6" path="res://fonts/KenVector Future.ttf" id="1_6qp0f"]
+[ext_resource type="Texture2D" uid="uid://do3aiseak5a5" path="res://textures/bar_horizontal_green_mid.png" id="2_24r27"]
+
+[sub_resource type="Font" id="Font_tv4dv"]
+data/0 = ExtResource("1_6qp0f")
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_2n027")
+
+[node name="ScoreLabel" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -126.0
+offset_top = 10.0
+offset_right = 126.0
+offset_bottom = 67.0
+theme_override_fonts/font = SubResource("Font_tv4dv")
+theme_override_font_sizes/font_size = 48
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ShieldBar" type="TextureProgressBar" parent="."]
+offset_left = 30.0
+offset_top = 10.0
+offset_right = 230.0
+offset_bottom = 40.0
+value = 25.0
+nine_patch_stretch = true
+texture_progress = ExtResource("2_24r27")

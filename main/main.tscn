@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dv4n202nity35"]
+[gd_scene load_steps=7 format=3 uid="uid://dv4n202nity35"]
 
 [ext_resource type="PackedScene" uid="uid://dxst8bobqx08b" path="res://player/player.tscn" id="1_ntu04"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_qky8q"]
 [ext_resource type="Texture2D" uid="uid://c1tfodoc0eub" path="res://textures/starfield.png" id="2_rekn7"]
 [ext_resource type="AudioStream" uid="uid://cam4032e7exx0" path="res://asteroid/explosion_effect/audio/expl_1.wav" id="4_dvbw5"]
 [ext_resource type="AudioStream" uid="uid://vjr5x3pcm8ts" path="res://main/music/simple_beat.ogg" id="5_hmvno"]
+[ext_resource type="PackedScene" uid="uid://bhkrl4ck0eb1v" path="res://hud.tscn" id="6_cgpxp"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_qky8q")
@@ -53,3 +54,5 @@ stream = ExtResource("4_dvbw5")
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_hmvno")
 autoplay = true
+
+[node name="HUD" parent="." instance=ExtResource("6_cgpxp")]
