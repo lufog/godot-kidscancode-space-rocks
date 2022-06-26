@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bhkrl4ck0eb1v"]
+[gd_scene load_steps=7 format=3 uid="uid://bhkrl4ck0eb1v"]
 
 [ext_resource type="Script" path="res://hud.gd" id="1_2n027"]
 [ext_resource type="FontData" uid="uid://cb7prc7ubyfq6" path="res://fonts/KenVector Future.ttf" id="1_6qp0f"]
@@ -7,7 +7,14 @@
 [sub_resource type="Font" id="Font_tv4dv"]
 data/0 = ExtResource("1_6qp0f")
 
+[sub_resource type="Font" id="Font_pstre"]
+data/0 = ExtResource("1_6qp0f")
+
+[sub_resource type="Font" id="Font_v3tym"]
+data/0 = ExtResource("1_6qp0f")
+
 [node name="HUD" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_2n027")
 
 [node name="ScoreLabel" type="Label" parent="."]
@@ -31,3 +38,34 @@ offset_bottom = 40.0
 value = 25.0
 nine_patch_stretch = true
 texture_progress = ExtResource("2_24r27")
+
+[node name="MessageLabel" type="Label" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_fonts/font = SubResource("Font_pstre")
+theme_override_font_sizes/font_size = 48
+text = "Wave 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MessageTimer" type="Timer" parent="."]
+process_mode = 1
+wait_time = 3.0
+one_shot = true
+
+[node name="PausePopUp" type="Panel" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="PauseLabel" type="Label" parent="PausePopUp"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_fonts/font = SubResource("Font_v3tym")
+theme_override_font_sizes/font_size = 48
+text = "Paused"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]
