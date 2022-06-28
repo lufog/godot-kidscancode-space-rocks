@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c2m6poux637ay"]
+[gd_scene load_steps=21 format=3 uid="uid://c2m6poux637ay"]
 
 [ext_resource type="Texture2D" uid="uid://duh3bnj60pmhw" path="res://asteroid/explosion_effect/textures/regular_explosion_00.png" id="1_1yux3"]
 [ext_resource type="Texture2D" uid="uid://vkejvbfylllp" path="res://asteroid/explosion_effect/textures/regular_explosion_01.png" id="2_jwgsq"]
@@ -10,6 +10,15 @@
 [ext_resource type="Texture2D" uid="uid://bhoednqfbhlu" path="res://asteroid/explosion_effect/textures/regular_explosion_07.png" id="8_is7de"]
 [ext_resource type="Texture2D" uid="uid://1r1w68wjif15" path="res://asteroid/explosion_effect/textures/regular_explosion_08.png" id="9_p671d"]
 [ext_resource type="Script" path="res://asteroid/explosion_effect/explosion_effect.gd" id="10_erhuh"]
+[ext_resource type="Texture2D" uid="uid://c6dhjgnwicpo0" path="res://asteroid/explosion_effect/textures/sonic_explosion_00.png" id="10_huwkf"]
+[ext_resource type="Texture2D" uid="uid://5fkn63mwyep0" path="res://asteroid/explosion_effect/textures/sonic_explosion_01.png" id="11_l43eu"]
+[ext_resource type="Texture2D" uid="uid://djog2mleencfp" path="res://asteroid/explosion_effect/textures/sonic_explosion_02.png" id="12_kfjgy"]
+[ext_resource type="Texture2D" uid="uid://bbisneg2cmnc0" path="res://asteroid/explosion_effect/textures/sonic_explosion_03.png" id="13_ekuiy"]
+[ext_resource type="Texture2D" uid="uid://dvltow3axpsvr" path="res://asteroid/explosion_effect/textures/sonic_explosion_04.png" id="14_v8rbl"]
+[ext_resource type="Texture2D" uid="uid://bx8tgfvsgdorn" path="res://asteroid/explosion_effect/textures/sonic_explosion_05.png" id="15_t63jq"]
+[ext_resource type="Texture2D" uid="uid://dxft5mluixkeo" path="res://asteroid/explosion_effect/textures/sonic_explosion_06.png" id="16_2uhta"]
+[ext_resource type="Texture2D" uid="uid://bvovsnomd3jqk" path="res://asteroid/explosion_effect/textures/sonic_explosion_07.png" id="17_h8u2y"]
+[ext_resource type="Texture2D" uid="uid://cw0mp61m3xbgd" path="res://asteroid/explosion_effect/textures/sonic_explosion_08.png" id="18_lwqoi"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_doivl"]
 animations = [{
@@ -17,11 +26,16 @@ animations = [{
 "loop": false,
 "name": &"regular",
 "speed": 12.0
+}, {
+"frames": [ExtResource("10_huwkf"), ExtResource("11_l43eu"), ExtResource("12_kfjgy"), ExtResource("13_ekuiy"), ExtResource("14_v8rbl"), ExtResource("15_t63jq"), ExtResource("16_2uhta"), ExtResource("17_h8u2y"), ExtResource("18_lwqoi")],
+"loop": false,
+"name": &"sonic",
+"speed": 12.0
 }]
 
 [node name="ExplosionEffect" type="AnimatedSprite2D"]
 frames = SubResource("SpriteFrames_doivl")
-animation = &"regular"
+animation = &"sonic"
 script = ExtResource("10_erhuh")
 
 [connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

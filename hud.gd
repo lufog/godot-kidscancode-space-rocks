@@ -19,6 +19,7 @@ func _input(event: InputEvent) -> void:
 
 func _on_message_timer_timeout() -> void:
 	message_label.hide()
+	message_label.text = ""
 
 
 func update(player: Player) -> void:

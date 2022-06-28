@@ -54,7 +54,6 @@ texture = ExtResource("5_r6asd")
 position = Vector2(0, 33)
 scale = Vector2(0.6, 0.6)
 frames = SubResource("SpriteFrames_6vn73")
-frame = 1
 playing = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -2,6 +2,8 @@ extends Area2D
 class_name Player
 
 
+signal explode
+
 @export var rot_speed: float = 2.6
 @export var thrust: float = 500
 @export var max_vel: float = 400
@@ -60,12 +62,20 @@ func _process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
+	if not visible:
+		return
+	
 	if body is Asteroid:
 		if shield_up:
 			body.explode(velocity)
 			shield_level -= Global.asteroid_damage[body.size]
 		else:
-			Global.game_over = false
+			explode.emit()
+
+
+func disable() -> void:
+	hide()
+	set_process(false)
 
 
 func _shoot() -> void:
