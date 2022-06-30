@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://vpfr3t15w2w0"]
+
+[sub_resource type="Curve2D" id="Curve2D_nwdfa"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -45, 521, -573.739, -217.379, 573.739, 217.379, 1088, 155)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_fdlti"]
+_data = {
+"points": PackedVector2Array(210.88, -814.082, -400, 800, 200, -60, 400, 800, -314.98, -599.722, 800, -60)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ho8bu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -60, 500, 125.992, 250.724, -125.992, -250.724, 787, 207, 149.931, -251.984, -149.931, 251.984, 202, 203, 0, 0, 0, 0, 1084, 500)
+}
+point_count = 4
+
+[node name="EnemyPaths" type="Node"]
+
+[node name="Path1" type="Path2D" parent="."]
+visible = false
+curve = SubResource("Curve2D_nwdfa")
+
+[node name="Path2" type="Path2D" parent="."]
+visible = false
+curve = SubResource("Curve2D_fdlti")
+
+[node name="Path3" type="Path2D" parent="."]
+curve = SubResource("Curve2D_ho8bu")
