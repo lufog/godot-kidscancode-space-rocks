@@ -3,6 +3,7 @@ extends Node
 
 var asteroid_scene: PackedScene = preload("res://asteroid/asteroid.tscn")
 var explosion_effect_scene: PackedScene = preload("res://asteroid/explosion_effect/explosion_effect.tscn")
+var enemy_scene: PackedScene = preload("res://enemy/enemy.tscn")
 
 @onready var spawn_locations: Node = $SpawnLocations
 @onready var asteroid_container: Node = $AsteroidContainer
@@ -10,6 +11,7 @@ var explosion_effect_scene: PackedScene = preload("res://asteroid/explosion_effe
 @onready var hud: CanvasLayer = $HUD
 @onready var player: Area2D = $Player
 @onready var restart_timer: Timer = $RestartTimer
+@onready var enemy_timer: Timer = $EnemyTimer
 
 
 func  _ready() -> void:
@@ -21,6 +23,14 @@ func _process(_delta: float) -> void:
 	hud.update(player)
 	if asteroid_container.get_child_count() == 0:
 		begin_next_level()
+
+
+func _on_enemy_timer_timeout() -> void:
+	var enemy := enemy_scene.instantiate() as Area2D
+	add_child(enemy)
+	enemy.target = player
+	enemy_timer.wait_time = randf_range(20, 40)
+	enemy_timer.start()
 
 
 func _explode_asteroid(size: String, pos: Vector2, vel: Vector2, hit_dir: Vector2) -> void:
@@ -54,6 +64,9 @@ func _explode_player() -> void:
 
 func begin_next_level() -> void:
 	Global.level += 1
+	enemy_timer.stop()
+	enemy_timer.wait_time = randf_range(20, 40)
+	enemy_timer.start()
 	hud.show_message("Wave %s" % Global.level)
 	for i in Global.level:
 		var index := randi_range(0, spawn_locations.get_child_count() - 1)
@@ -65,3 +78,4 @@ func spawn_asteroid(size: String, pos: Vector2, vel := Vector2.ZERO) -> void:
 	asteroid_container.add_child.call_deferred(a)
 	a.exploded.connect(_explode_asteroid)
 	a.init.call_deferred(size, pos, vel)
+

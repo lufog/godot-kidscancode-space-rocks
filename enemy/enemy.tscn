@@ -1,11 +1,27 @@
-[gd_scene load_steps=8 format=3 uid="uid://6wsnullb3bxk"]
+[gd_scene load_steps=9 format=3 uid="uid://6wsnullb3bxk"]
 
 [ext_resource type="Texture2D" uid="uid://c1n7m4oxb1ltp" path="res://enemy/textures/ufo_red.png" id="1_i6jae"]
 [ext_resource type="Script" path="res://enemy/enemy.gd" id="1_rbewk"]
 [ext_resource type="PackedScene" uid="uid://vpfr3t15w2w0" path="res://enemy/enemy_paths.tscn" id="2_7wyxd"]
+[ext_resource type="AudioStream" uid="uid://dabs46tumxbhl" path="res://bullet/audio/laser_2.wav" id="3_xjvba"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_isopg"]
 radius = 37.0
+
+[sub_resource type="Animation" id="Animation_obmem"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_3tkpo"]
 resource_name = "rotate"
@@ -21,21 +37,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [0.0, 6.26573, 6.26573]
-}
-
-[sub_resource type="Animation" id="Animation_obmem"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yn87l"]
@@ -61,10 +62,13 @@ libraries = {
 "": SubResource("AnimationLibrary_yn87l")
 }
 
+[node name="BulletContainer" type="Node" parent="."]
+
+[node name="ShootTimer" type="Timer" parent="."]
+
+[node name="ShootPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_xjvba")
+
 [node name="EnemyPaths" parent="." instance=ExtResource("2_7wyxd")]
 
-[node name="VisibleNotifier" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(-0.500002, 9.53674e-07)
-scale = Vector2(3.65, 3.7)
-
-[connection signal="screen_exited" from="VisibleNotifier" to="." method="_on_visible_notifier_screen_exited"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
