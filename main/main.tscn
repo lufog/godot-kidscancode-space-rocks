@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dv4n202nity35"]
 
-[ext_resource type="PackedScene" uid="uid://dxst8bobqx08b" path="res://player/player.tscn" id="1_ntu04"]
+[ext_resource type="PackedScene" uid="uid://bxvkt0h2cqmeh" path="res://player/player.tscn" id="1_ntu04"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_qky8q"]
 [ext_resource type="Texture2D" uid="uid://c1tfodoc0eub" path="res://textures/starfield.png" id="2_rekn7"]
 [ext_resource type="AudioStream" uid="uid://cam4032e7exx0" path="res://asteroid/explosion_effect/audio/expl_1.wav" id="4_dvbw5"]

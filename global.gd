@@ -10,8 +10,14 @@ var current_scene = null
 var new_scene = null
 
 # Player settings.
-var shield_max: int = 10
+var shield_max: int = 100
 var shield_regen: int = 10
+var bullet_damage: float = 25
+
+# Enemy settings
+var enemy_bullet_damage: float = 25
+var enemy_health: float = 30
+var enemy_points: float = 100
 
 # Asteroid settings.
 var break_pattern := { "big": "med", "med": "small", "small": "tiny", "tiny": null }

@@ -1,14 +1,21 @@
 extends Area2D
 
 
+signal explode
+signal pulse_timeout
+
 var bullet_scene: PackedScene = preload("res://enemy_bullet/enemy_bullet.tscn")
 
 var path: Path2D
 var follow: PathFollow2D
 var remote: Node2D
 var speed: float = 250
+var accuracy: float = 0.1
+var health: float
 var target: Node2D
+var pulse_timer: Timer
 
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var bullet_container: Node = $BulletContainer
 @onready var shoot_timer: Timer = $ShootTimer
 @onready var shoot_player: AudioStreamPlayer = $ShootPlayer
@@ -16,6 +23,10 @@ var target: Node2D
 
 
 func _ready() -> void:
+	pulse_timer = Timer.new()
+	add_child(pulse_timer)
+	pulse_timer.timeout.connect(_emit_pulse_timeout)
+	health = Global.enemy_health
 	randomize()
 	var path_index = randi() % enemy_paths.get_child_count()
 	path = enemy_paths.get_children()[path_index]
@@ -36,15 +47,42 @@ func _process(delta: float) -> void:
 
 
 func _on_shoot_timer_timeout() -> void:
-	shoot_player.play()
-	_shoot_3()
+	if target.visible:
+		shoot_player.play()
+		_shoot_pulse(3, 0.1)
 
+
+func _emit_pulse_timeout() -> void:
+	pulse_timeout.emit()
+
+
+func damage(amount: float) -> void:
+	health -= amount
+	animation_player.play("hit")
+	if health <= 0:
+		Global.score += Global.enemy_points
+		explode.emit(position)
+		queue_free()
+
+
+func _pulse_delay(delay: float) -> void:
+	pulse_timer.wait_time = delay
+	pulse_timer.process_mode = 0
+	pulse_timer.start()
+
+
+func _shoot_pulse(n: int, delay: float) -> void:
+	for i in range(n):
+		_shoot_1()
+		_pulse_delay(delay)
+		await pulse_timeout
+	
 
 func _shoot_1() -> void:
 	var bullet := bullet_scene.instantiate() as Area2D
 	bullet_container.add_child(bullet)
 	var dir := global_position - target.global_position
-	bullet.start_at(dir.angle() + PI / 2, global_position)
+	bullet.start_at(dir.angle() + PI / 2 + randf_range(-accuracy, accuracy), global_position)
 
 
 func _shoot_3() -> void:

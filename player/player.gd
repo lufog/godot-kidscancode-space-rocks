@@ -68,14 +68,20 @@ func _on_body_entered(body: Node2D) -> void:
 	if body is Asteroid:
 		if shield_up:
 			body.explode(velocity)
-			shield_level -= Global.asteroid_damage[body.size]
-		else:
-			explode.emit()
+			damage(Global.asteroid_damage[body.size])
 
 
 func disable() -> void:
 	hide()
 	set_process(false)
+
+
+func damage(amount: float) -> void:
+	if shield_up:
+		shield_level -= amount
+	else:
+		disable()
+		explode.emit()
 
 
 func _shoot() -> void:

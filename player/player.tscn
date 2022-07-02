@@ -1,9 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://dxst8bobqx08b"]
+[gd_scene load_steps=11 format=3 uid="uid://bxvkt0h2cqmeh"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_2mhdh"]
-[ext_resource type="PackedScene" uid="uid://boqmqy82ndagu" path="res://bullet/player_bullet.tscn" id="2_t5mi5"]
+[ext_resource type="PackedScene" uid="uid://bp42q3uy2pb1g" path="res://player_bullet/player_bullet.tscn" id="2_iwsv2"]
 [ext_resource type="Texture2D" uid="uid://cxvf70lho0683" path="res://player/textures/player_ship.png" id="3_i0qwm"]
-[ext_resource type="AudioStream" uid="uid://dabs46tumxbhl" path="res://bullet/audio/laser_2.wav" id="4_mu8yh"]
+[ext_resource type="AudioStream" uid="uid://dabs46tumxbhl" path="res://player_bullet/audio/laser_2.wav" id="4_h2hc5"]
 [ext_resource type="Texture2D" uid="uid://dxqxfakhiiahy" path="res://player/textures/shield3.png" id="5_r6asd"]
 [ext_resource type="Texture2D" uid="uid://b3tn0y36cpgbq" path="res://player/textures/fire_1.png" id="6_ceh8j"]
 [ext_resource type="Texture2D" uid="uid://b8p5ylybswelj" path="res://player/textures/fire_2.png" id="7_80524"]
@@ -22,7 +22,7 @@ animations = [{
 
 [node name="Player" type="Area2D"]
 script = ExtResource("1_2mhdh")
-bullet_scene = ExtResource("2_t5mi5")
+bullet_scene = ExtResource("2_iwsv2")
 metadata/_edit_group_ = true
 
 [node name="Sprite" type="Sprite2D" parent="."]
@@ -44,7 +44,7 @@ wait_time = 0.2
 one_shot = true
 
 [node name="ShootSoundPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_mu8yh")
+stream = ExtResource("4_h2hc5")
 
 [node name="ShieldSprite" type="Sprite2D" parent="."]
 scale = Vector2(0.6, 0.6)
@@ -54,6 +54,7 @@ texture = ExtResource("5_r6asd")
 position = Vector2(0, 33)
 scale = Vector2(0.6, 0.6)
 frames = SubResource("SpriteFrames_6vn73")
+frame = 1
 playing = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -29,6 +29,7 @@ func _on_enemy_timer_timeout() -> void:
 	var enemy := enemy_scene.instantiate() as Area2D
 	add_child(enemy)
 	enemy.target = player
+	enemy.explode.connect(_explode_enemy)
 	enemy_timer.wait_time = randf_range(20, 40)
 	enemy_timer.start()
 
@@ -62,10 +63,19 @@ func _explode_player() -> void:
 	Global.new_game()
 
 
+func _explode_enemy(enemy_position: Vector2) -> void:
+	var explosion_effect := explosion_effect_scene.instantiate() as AnimatedSprite2D
+	add_child(explosion_effect)
+	explosion_effect.position = enemy_position
+	explosion_effect.set_animation("sonic")
+	explosion_effect.play()
+	explosion_sound_player.play()
+
+
 func begin_next_level() -> void:
 	Global.level += 1
 	enemy_timer.stop()
-	enemy_timer.wait_time = randf_range(20, 40)
+	enemy_timer.wait_time = randf_range(2, 4)
 	enemy_timer.start()
 	hud.show_message("Wave %s" % Global.level)
 	for i in Global.level:
