@@ -4,12 +4,12 @@ class_name Player
 
 signal explode
 
-@export var rot_speed: float = 2.6
-@export var thrust: float = 500
 @export var max_vel: float = 400
 @export var friction: float = 0.65
 @export var bullet_scene: PackedScene
 
+var rot_speed: float = Global.rot_level[Global.upgrade_level['rot']]
+var thrust: float = Global.thrust_level[Global.upgrade_level['thrust']]
 var velocity: Vector2
 var accel: Vector2
 var shield_level: float = Global.shield_max
@@ -30,7 +30,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if shield_up:
-		shield_level = min(shield_level + Global.shield_regen * delta, Global.shield_max)
+		shield_level = min(shield_level + Global.shield_level[Global.upgrade_level['shield_regen']] * delta, Global.shield_max)
 	
 	if shield_level <= 0 and shield_up:
 		shield_up = false
@@ -87,7 +87,7 @@ func damage(amount: float) -> void:
 func _shoot() -> void:
 	gun_timer.start()
 	var bullet := bullet_scene.instantiate() as Area2D
+	bullet.start_at(rotation, global_position)
 	bullet.global_position = muzzle.global_position
-	bullet.rotation = rotation
 	bullet_container.add_child(bullet)
 	shoot_sound_player.play()

@@ -11,8 +11,13 @@ var new_scene = null
 
 # Player settings.
 var shield_max: int = 100
-var shield_regen: int = 10
 var bullet_damage: float = 25
+var cash: int = 0
+var upgrade_level = { 'thrust': 1, 'fire_rate': 1, 'rot': 1, 'shield_regen': 4, 'guns': 4 }
+var thrust_level = { 1: 200, 2: 400, 3: 600, 4: 800 }
+var rot_level = { 1: 1.5, 2: 2.5, 3: 3.5, 4: 4.5 }
+var shield_level = { 1: 5, 2: 7.5, 3: 10, 4: 15 }
+var fire_level = { 1: 0.4, 2: 0.3, 3: 0.2, 4: 0.1 }
 
 # Enemy settings
 var enemy_bullet_damage: float = 25

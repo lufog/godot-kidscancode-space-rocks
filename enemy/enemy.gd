@@ -2,9 +2,8 @@ extends Area2D
 
 
 signal explode
-signal pulse_timeout
 
-var bullet_scene: PackedScene = preload("res://enemy_bullet/enemy_bullet.tscn")
+var bullet_scene: PackedScene = preload("res://bullet/enemy_bullet/enemy_bullet.tscn")
 
 var path: Path2D
 var follow: PathFollow2D
@@ -25,7 +24,6 @@ var pulse_timer: Timer
 func _ready() -> void:
 	pulse_timer = Timer.new()
 	add_child(pulse_timer)
-	pulse_timer.timeout.connect(_emit_pulse_timeout)
 	health = Global.enemy_health
 	randomize()
 	var path_index = randi() % enemy_paths.get_child_count()
@@ -52,9 +50,6 @@ func _on_shoot_timer_timeout() -> void:
 		_shoot_pulse(3, 0.1)
 
 
-func _emit_pulse_timeout() -> void:
-	pulse_timeout.emit()
-
 
 func damage(amount: float) -> void:
 	health -= amount
@@ -75,14 +70,14 @@ func _shoot_pulse(n: int, delay: float) -> void:
 	for i in range(n):
 		_shoot_1()
 		_pulse_delay(delay)
-		await pulse_timeout
+		await pulse_timer.timeout
 	
 
 func _shoot_1() -> void:
 	var bullet := bullet_scene.instantiate() as Area2D
 	bullet_container.add_child(bullet)
 	var dir := global_position - target.global_position
-	bullet.start_at(dir.angle() + PI / 2 + randf_range(-accuracy, accuracy), global_position)
+	bullet.start_at(dir.angle() - PI / 2 + randf_range(-accuracy, accuracy), global_position)
 
 
 func _shoot_3() -> void:
