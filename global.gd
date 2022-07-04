@@ -25,6 +25,7 @@ var enemy_health: float = 30
 var enemy_points: float = 100
 
 # Asteroid settings.
+var rock_mass := { "big": 20, "med": 9, "small": 5, "tiny": 1 }
 var break_pattern := { "big": "med", "med": "small", "small": "tiny", "tiny": null }
 var asteroid_damage := { "big": 40, "med": 20, "small": 15, "tiny": 10 }
 var asteroid_poins := { "big": 10, "med": 15, "small": 20, "tiny": 40 }

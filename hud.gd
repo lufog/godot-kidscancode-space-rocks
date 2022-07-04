@@ -24,7 +24,10 @@ func _on_message_timer_timeout() -> void:
 
 func update(player: Player) -> void:
 	update_shield(player.shield_level)
-	score_label.text = str(Global.score)
+
+
+func update_score(value: int) -> void:
+	score_label.text = str(value)
 
 
 func show_message(text: String) -> void:

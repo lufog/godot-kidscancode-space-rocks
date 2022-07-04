@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends RigidDynamicBody2D
 class_name Asteroid
 
 
@@ -9,7 +9,6 @@ signal exploded(size: String, pos: Vector2, vel: Vector2, hit_dir: Vector2)
 const SPEED = 300.0
 
 var size: String
-var rot_speed = 300.0
 var extents: Vector2
 var texture_paths = {
 	"big": ["res://asteroid/textures/meteor_big_1.png", 
@@ -25,37 +24,32 @@ var texture_paths = {
 @onready var viewport_rect := get_viewport().get_visible_rect()
 @onready var sprite: Sprite2D = $Sprite
 @onready var collision: CollisionShape2D = $Collision
-@onready var euff_particles: GPUParticles2D = $EuffParticles
+@onready var puff_particles: GPUParticles2D = $PuffParticles
 
 
 func _ready() -> void:
 	randomize()
-	rot_speed = randf_range(-1.5, 1.5)
 
 
-func _physics_process(delta: float) -> void:
-	velocity.limit_length(150)
-	if is_on_wall():
-		for i in get_slide_collision_count():
-			var col = get_slide_collision(i)
-			velocity += col.get_normal() * col.get_collider().velocity.length() * bounce
-			euff_particles.global_position = col.get_position()
-			euff_particles.emitting = true
+func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+	for i in state.get_contact_count():
+		puff_particles.global_position = state.get_contact_local_position(i)
+		puff_particles.emitting = true
 	
-	rotation += rot_speed * delta
-	position = Vector2(
-		wrapf(position.x + velocity.x * delta, -extents.x, viewport_rect.size.x + extents.x),
-		wrapf(position.y + velocity.y * delta, -extents.y, viewport_rect.size.y + extents.y)
-	)
-	move_and_slide()
+	state.transform.origin.x = wrapf(state.transform.origin.x, -extents.x, 
+			viewport_rect.size.x + extents.x)
+	state.transform.origin.y = wrapf(state.transform.origin.y, -extents.y, 
+			viewport_rect.size.y + extents.y)
 
 
 func init(init_size: String, init_pos: Vector2, init_vel: Vector2) -> void:
 	size = init_size
+	mass = Global.rock_mass[size]
 	if init_vel.length() > 0:
-		velocity = init_vel
+		linear_velocity = init_vel
 	else:
-		velocity = Vector2(randf_range(30, 100), 0).rotated(randf_range(0, 2 * PI))
+		linear_velocity = Vector2(randf_range(50, 100), 0).rotated(randf_range(0, 2 * PI))
+	angular_velocity = randf_range(-1.5, 1.5)
 	var index := randi_range(0, texture_paths[size].size() - 1)
 	var texture := load(texture_paths[size][index]) as Texture2D
 	sprite.texture = texture
@@ -66,7 +60,6 @@ func init(init_size: String, init_pos: Vector2, init_vel: Vector2) -> void:
 	position = init_pos
 
 
-func explode(hit_dir: Vector2) -> void:
-	exploded.emit(size, position, velocity, hit_dir)
-	Global.score += Global.asteroid_poins[size] 
+func explode(hit_vel: Vector2) -> void:
+	exploded.emit(size, extents, position, linear_velocity, hit_vel)
 	queue_free()

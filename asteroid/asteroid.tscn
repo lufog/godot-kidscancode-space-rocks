@@ -27,10 +27,10 @@ linear_accel_min = 100.0
 linear_accel_max = 200.0
 scale_curve = SubResource("CurveTexture_5uj1p")
 
-[node name="Asteroid" type="CharacterBody2D"]
+[node name="Asteroid" type="RigidDynamicBody2D"]
 collision_layer = 4
-collision_mask = 11
-motion_mode = 1
+collision_mask = 15
+gravity_scale = 0.0
 script = ExtResource("1_kl4a1")
 
 [node name="Sprite" type="Sprite2D" parent="."]
@@ -39,7 +39,7 @@ texture = ExtResource("2_7cg4u")
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_34v01")
 
-[node name="EuffParticles" type="GPUParticles2D" parent="."]
+[node name="PuffParticles" type="GPUParticles2D" parent="."]
 position = Vector2(35, 35)
 emitting = false
 amount = 32

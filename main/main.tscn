@@ -1,11 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://dv4n202nity35"]
+[gd_scene load_steps=8 format=3 uid="uid://dv4n202nity35"]
 
-[ext_resource type="PackedScene" uid="uid://bxvkt0h2cqmeh" path="res://player/player.tscn" id="1_ntu04"]
+[ext_resource type="PackedScene" uid="uid://dp1522bxludth" path="res://player/player.tscn" id="1_ntu04"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_qky8q"]
 [ext_resource type="Texture2D" uid="uid://c1tfodoc0eub" path="res://textures/starfield.png" id="2_rekn7"]
 [ext_resource type="AudioStream" uid="uid://cam4032e7exx0" path="res://asteroid/explosion_effect/audio/expl_1.wav" id="4_dvbw5"]
 [ext_resource type="AudioStream" uid="uid://vjr5x3pcm8ts" path="res://main/music/simple_beat.ogg" id="5_hmvno"]
 [ext_resource type="PackedScene" uid="uid://bhkrl4ck0eb1v" path="res://hud.tscn" id="6_cgpxp"]
+
+[sub_resource type="Curve2D" id="Curve2D_mxpef"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 50, 50, 0, 0, 0, 0, 974, 50, 0, 0, 0, 0, 974, 550, 0, 0, 0, 0, 50, 550, 0, 0, 0, 0, 50, 50)
+}
+point_count = 5
 
 [node name="Main" type="Node"]
 script = ExtResource("1_qky8q")
@@ -20,31 +26,11 @@ region_rect = Rect2(0, 0, 1024, 600)
 [node name="Player" parent="." instance=ExtResource("1_ntu04")]
 position = Vector2(503, 301)
 
-[node name="SpawnLocations" type="Node" parent="."]
+[node name="AsteroidPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_mxpef")
 
-[node name="1" type="Position2D" parent="SpawnLocations"]
-position = Vector2(70, 70)
-
-[node name="2" type="Position2D" parent="SpawnLocations"]
-position = Vector2(70, 300)
-
-[node name="3" type="Position2D" parent="SpawnLocations"]
-position = Vector2(70, 530)
-
-[node name="4" type="Position2D" parent="SpawnLocations"]
-position = Vector2(950, 70)
-
-[node name="5" type="Position2D" parent="SpawnLocations"]
-position = Vector2(950, 300)
-
-[node name="6" type="Position2D" parent="SpawnLocations"]
-position = Vector2(950, 530)
-
-[node name="7" type="Position2D" parent="SpawnLocations"]
-position = Vector2(505, 70)
-
-[node name="8" type="Position2D" parent="SpawnLocations"]
-position = Vector2(505, 530)
+[node name="AsteroidSpawnLocation" type="PathFollow2D" parent="AsteroidPath"]
+position = Vector2(50, 50)
 
 [node name="AsteroidContainer" type="Node" parent="."]
 
@@ -62,5 +48,7 @@ wait_time = 3.0
 one_shot = true
 
 [node name="EnemyTimer" type="Timer" parent="."]
+
+[node name="BulletContainer" type="Node" parent="."]
 
 [connection signal="timeout" from="EnemyTimer" to="." method="_on_enemy_timer_timeout"]

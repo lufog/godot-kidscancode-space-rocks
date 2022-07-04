@@ -5,17 +5,19 @@ var asteroid_scene: PackedScene = preload("res://asteroid/asteroid.tscn")
 var explosion_effect_scene: PackedScene = preload("res://asteroid/explosion_effect/explosion_effect.tscn")
 var enemy_scene: PackedScene = preload("res://enemy/enemy.tscn")
 
-@onready var spawn_locations: Node = $SpawnLocations
+@onready var asteroid_spawn_location: PathFollow2D = $AsteroidPath/AsteroidSpawnLocation
 @onready var asteroid_container: Node = $AsteroidContainer
 @onready var explosion_sound_player: AudioStreamPlayer = $ExplosionSoundPlayer
 @onready var hud: CanvasLayer = $HUD
 @onready var player: Area2D = $Player
 @onready var restart_timer: Timer = $RestartTimer
 @onready var enemy_timer: Timer = $EnemyTimer
+@onready var bullet_container: Node = $BulletContainer
 
 
 func  _ready() -> void:
 	player.explode.connect(_explode_player)
+	player.shoot.connect(_add_bullet)
 	begin_next_level()
 
 
@@ -30,16 +32,19 @@ func _on_enemy_timer_timeout() -> void:
 	add_child(enemy)
 	enemy.target = player
 	enemy.explode.connect(_explode_enemy)
+	enemy.shoot.connect(_add_bullet)
 	enemy_timer.wait_time = randf_range(20, 40)
 	enemy_timer.start()
 
 
-func _explode_asteroid(size: String, pos: Vector2, vel: Vector2, hit_dir: Vector2) -> void:
+func _explode_asteroid(size: String, extents: Vector2, pos: Vector2, vel: Vector2, hit_vel: Vector2) -> void:
+	Global.score += Global.asteroid_poins[size]
+	hud.update_score(Global.score)
 	var new_size = Global.break_pattern[size]
 	if new_size:
 		for offset in [-1, 1]:
-			var new_pos = pos + hit_dir.orthogonal().limit_length(25) * offset
-			var new_vel = vel + hit_dir.orthogonal() * offset
+			var new_pos = pos + hit_vel.orthogonal() * max(extents.x/2, extents.y/2) * offset
+			var new_vel = hit_vel.orthogonal() * vel.length() * 1.2 * offset
 			spawn_asteroid(new_size, new_pos, new_vel)
 	var explosion_effect := explosion_effect_scene.instantiate() as AnimatedSprite2D
 	add_child(explosion_effect)
@@ -72,6 +77,12 @@ func _explode_enemy(enemy_position: Vector2) -> void:
 	explosion_sound_player.play()
 
 
+func _add_bullet(bullet_scene: PackedScene, bullet_position: Vector2, bullet_rotation: float) -> void:
+		var bullet := bullet_scene.instantiate() as Area2D
+		bullet.start_at(bullet_rotation, bullet_position)
+		bullet_container.add_child(bullet)
+
+
 func begin_next_level() -> void:
 	Global.level += 1
 	enemy_timer.stop()
@@ -79,8 +90,8 @@ func begin_next_level() -> void:
 	enemy_timer.start()
 	hud.show_message("Wave %s" % Global.level)
 	for i in Global.level:
-		var index := randi_range(0, spawn_locations.get_child_count() - 1)
-		spawn_asteroid("big", spawn_locations.get_child(index).position)
+		asteroid_spawn_location.unit_offset = randf_range(0, 1)
+		spawn_asteroid("big", asteroid_spawn_location.position)
 
 
 func spawn_asteroid(size: String, pos: Vector2, vel := Vector2.ZERO) -> void:

@@ -3,6 +3,7 @@ class_name Player
 
 
 signal explode
+signal shoot
 
 @export var max_vel: float = 400
 @export var friction: float = 0.65
@@ -16,7 +17,6 @@ var shield_level: float = Global.shield_max
 var shield_up: bool = true
 
 @onready var viewport_rect := get_viewport().get_visible_rect()
-@onready var bullet_container: Node = $BulletContainer
 @onready var muzzle: Position2D = $MuzzlePosition
 @onready var gun_timer: Timer = $GunTimer
 @onready var shoot_sound_player: AudioStreamPlayer = $ShootSoundPlayer
@@ -86,8 +86,5 @@ func damage(amount: float) -> void:
 
 func _shoot() -> void:
 	gun_timer.start()
-	var bullet := bullet_scene.instantiate() as Area2D
-	bullet.start_at(rotation, global_position)
-	bullet.global_position = muzzle.global_position
-	bullet_container.add_child(bullet)
 	shoot_sound_player.play()
+	shoot.emit(bullet_scene, muzzle.global_position, rotation)

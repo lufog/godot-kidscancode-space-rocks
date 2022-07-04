@@ -1,9 +1,9 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=10 format=3 uid="uid://c48lkky41s7uw"]
 
 [ext_resource type="Texture2D" uid="uid://c1n7m4oxb1ltp" path="res://enemy/textures/ufo_red.png" id="1_i6jae"]
 [ext_resource type="Script" path="res://enemy/enemy.gd" id="1_rbewk"]
 [ext_resource type="PackedScene" uid="uid://vpfr3t15w2w0" path="res://enemy/enemy_paths.tscn" id="2_7wyxd"]
-[ext_resource type="AudioStream" path="res://bullet/player_bullet/audio/laser_2.wav" id="3_wusk0"]
+[ext_resource type="AudioStream" uid="uid://dabs46tumxbhl" path="res://bullet/player_bullet/audio/laser_2.wav" id="3_wusk0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_isopg"]
 radius = 37.0
@@ -94,13 +94,14 @@ libraries = {
 "": SubResource("AnimationLibrary_yn87l")
 }
 
-[node name="BulletContainer" type="Node" parent="."]
-
 [node name="ShootTimer" type="Timer" parent="."]
 
 [node name="ShootPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_wusk0")
 
 [node name="EnemyPaths" parent="." instance=ExtResource("2_7wyxd")]
+
+[node name="PulseTimer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
