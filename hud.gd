@@ -3,6 +3,7 @@ extends CanvasLayer
 
 @onready var _tree := get_tree()
 @onready var score_label: Label = $ScoreLabel
+@onready var bonus_label: Label = $Bonus/Label
 @onready var shield_bar: TextureProgressBar = $ShieldBar
 @onready var message_label: Label = $MessageLabel
 @onready var message_timer: Timer = $MessageTimer
@@ -28,6 +29,10 @@ func update(player: Player) -> void:
 
 func update_score(value: int) -> void:
 	score_label.text = str(value)
+
+
+func update_bonus(value: int) -> void:
+	bonus_label.text = str(value)
 
 
 func show_message(text: String) -> void:

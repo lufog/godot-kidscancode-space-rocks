@@ -73,3 +73,8 @@ pause_toggle={
 2d_physics/layer_2="Enemy"
 2d_physics/layer_3="Asteroid"
 2d_physics/layer_4="Projectile"
+
+[physics]
+
+2d/default_gravity=0.0
+2d/default_gravity_vector=Vector2(0, 0)

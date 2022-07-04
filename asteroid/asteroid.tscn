@@ -30,7 +30,6 @@ scale_curve = SubResource("CurveTexture_5uj1p")
 [node name="Asteroid" type="RigidDynamicBody2D"]
 collision_layer = 4
 collision_mask = 15
-gravity_scale = 0.0
 script = ExtResource("1_kl4a1")
 
 [node name="Sprite" type="Sprite2D" parent="."]

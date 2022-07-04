@@ -5,20 +5,33 @@
 [ext_resource type="Texture2D" uid="uid://cxvf70lho0683" path="res://player/textures/player_ship.png" id="3_i0qwm"]
 [ext_resource type="AudioStream" uid="uid://dabs46tumxbhl" path="res://bullet/player_bullet/audio/laser_2.wav" id="4_h2hc5"]
 [ext_resource type="Texture2D" uid="uid://dxqxfakhiiahy" path="res://player/textures/shield3.png" id="5_r6asd"]
-[ext_resource type="Texture2D" uid="uid://b3tn0y36cpgbq" path="res://player/textures/fire_1.png" id="6_ceh8j"]
-[ext_resource type="Texture2D" uid="uid://b8p5ylybswelj" path="res://player/textures/fire_2.png" id="7_80524"]
-[ext_resource type="Texture2D" uid="uid://bu4vgovo28vkq" path="res://player/textures/fire_3.png" id="7_h2gap"]
+[ext_resource type="Texture2D" uid="uid://bbvwskyq3r0m3" path="res://player/textures/exhaust_particles.png" id="6_vt7uq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yr0d7"]
 radius = 28.0713
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_6vn73"]
-animations = [{
-"frames": [ExtResource("6_ceh8j"), ExtResource("7_80524"), ExtResource("7_h2gap")],
-"loop": true,
-"name": &"default",
-"speed": 10.0
-}]
+[sub_resource type="Curve" id="Curve_j16y2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_hhiep"]
+width = 128
+curve = SubResource("Curve_j16y2")
+
+[sub_resource type="ParticlesMaterial" id="ParticlesMaterial_osgr2"]
+emission_shape = 3
+emission_box_extents = Vector3(4, 4, 1)
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+spread = 10.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 80.0
+initial_velocity_max = 160.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.13
+scale_max = 0.35
+scale_curve = SubResource("CurveTexture_hhiep")
 
 [node name="Player" type="Area2D"]
 script = ExtResource("1_2mhdh")
@@ -34,8 +47,14 @@ visible = false
 position = Vector2(0, 5)
 shape = SubResource("CircleShape2D_yr0d7")
 
-[node name="MuzzlePosition" type="Position2D" parent="."]
+[node name="MuzzleLocation" type="Position2D" parent="."]
 position = Vector2(0, -40)
+
+[node name="MuzzleLeftLocation" type="Position2D" parent="."]
+position = Vector2(-26, -20)
+
+[node name="MuzzleRightLocation" type="Position2D" parent="."]
+position = Vector2(26, -20)
 
 [node name="GunTimer" type="Timer" parent="."]
 wait_time = 0.2
@@ -48,11 +67,12 @@ stream = ExtResource("4_h2hc5")
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("5_r6asd")
 
-[node name="ExhaustAnimatedSprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, 33)
-scale = Vector2(0.6, 0.6)
-frames = SubResource("SpriteFrames_6vn73")
-frame = 2
-playing = true
+[node name="ExhaustParticles" type="GPUParticles2D" parent="."]
+position = Vector2(0, 30)
+emitting = false
+amount = 20
+lifetime = 0.1
+process_material = SubResource("ParticlesMaterial_osgr2")
+texture = ExtResource("6_vt7uq")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

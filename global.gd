@@ -22,9 +22,10 @@ var fire_level = { 1: 0.4, 2: 0.3, 3: 0.2, 4: 0.1 }
 # Enemy settings
 var enemy_bullet_damage: float = 25
 var enemy_health: float = 30
-var enemy_points: float = 100
+var enemy_points: int = 100
 
 # Asteroid settings.
+var drop_chance := 0.05
 var rock_mass := { "big": 20, "med": 9, "small": 5, "tiny": 1 }
 var break_pattern := { "big": "med", "med": "small", "small": "tiny", "tiny": null }
 var asteroid_damage := { "big": 40, "med": 20, "small": 15, "tiny": 10 }

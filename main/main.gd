@@ -4,6 +4,7 @@ extends Node
 var asteroid_scene: PackedScene = preload("res://asteroid/asteroid.tscn")
 var explosion_effect_scene: PackedScene = preload("res://asteroid/explosion_effect/explosion_effect.tscn")
 var enemy_scene: PackedScene = preload("res://enemy/enemy.tscn")
+var drop_scene: PackedScene = preload("res://drop/drop.tscn")
 
 @onready var asteroid_spawn_location: PathFollow2D = $AsteroidPath/AsteroidSpawnLocation
 @onready var asteroid_container: Node = $AsteroidContainer
@@ -75,6 +76,9 @@ func _explode_enemy(enemy_position: Vector2) -> void:
 	explosion_effect.set_animation("sonic")
 	explosion_effect.play()
 	explosion_sound_player.play()
+	var drop = drop_scene.instantiate()
+	drop.position = enemy_position
+	add_child.call_deferred(drop)
 
 
 func _add_bullet(bullet_scene: PackedScene, bullet_position: Vector2, bullet_rotation: float) -> void:

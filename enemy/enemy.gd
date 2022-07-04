@@ -44,6 +44,9 @@ func _on_shoot_timer_timeout() -> void:
 
 
 func damage(amount: float) -> void:
+	if is_queued_for_deletion():
+		return
+	
 	health -= amount
 	animation_player.play("hit")
 	if health <= 0:
