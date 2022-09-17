@@ -94,7 +94,7 @@ func begin_next_level() -> void:
 	enemy_timer.start()
 	hud.show_message("Wave %s" % Global.level)
 	for i in Global.level:
-		asteroid_spawn_location.unit_offset = randf_range(0, 1)
+		asteroid_spawn_location.progress_ratio = randf_range(0, 1)
 		spawn_asteroid("big", asteroid_spawn_location.position)
 
 

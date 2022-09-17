@@ -1,7 +1,7 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
+type="AudioStreamWAV"
 uid="uid://d2ykao4ausbet"
 path="res://.godot/imported/shield_down.wav-a0310d76ddfde03801bd4ae18cc47095.sample"
 

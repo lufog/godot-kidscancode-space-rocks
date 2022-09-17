@@ -30,9 +30,9 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	follow.offset += speed * delta
+	follow.progress += speed * delta
 	position = follow.global_position
-	if follow.unit_offset >= 1:
+	if follow.progress_ratio >= 1:
 		queue_free()
 
 

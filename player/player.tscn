@@ -18,7 +18,7 @@ point_count = 2
 width = 128
 curve = SubResource("Curve_j16y2")
 
-[sub_resource type="ParticlesMaterial" id="ParticlesMaterial_osgr2"]
+[sub_resource type="ParticleProcessMaterial" id="ParticlesMaterial_osgr2"]
 emission_shape = 3
 emission_box_extents = Vector3(4, 4, 1)
 particle_flag_disable_z = true
@@ -47,13 +47,13 @@ visible = false
 position = Vector2(0, 5)
 shape = SubResource("CircleShape2D_yr0d7")
 
-[node name="MuzzleLocation" type="Position2D" parent="."]
+[node name="MuzzleLocation" type="Marker2D" parent="."]
 position = Vector2(0, -40)
 
-[node name="MuzzleLeftLocation" type="Position2D" parent="."]
+[node name="MuzzleLeftLocation" type="Marker2D" parent="."]
 position = Vector2(-26, -20)
 
-[node name="MuzzleRightLocation" type="Position2D" parent="."]
+[node name="MuzzleRightLocation" type="Marker2D" parent="."]
 position = Vector2(26, -20)
 
 [node name="GunTimer" type="Timer" parent="."]

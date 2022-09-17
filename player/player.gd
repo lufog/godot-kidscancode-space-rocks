@@ -17,9 +17,9 @@ var shield_level: float = Global.shield_max
 var shield_up: bool = true
 
 @onready var viewport_rect := get_viewport().get_visible_rect()
-@onready var muzzle_location: Position2D = $MuzzleLocation
-@onready var muzzle_left_location: Position2D = $MuzzleLeftLocation
-@onready var muzzle_right_location: Position2D = $MuzzleRightLocation
+@onready var muzzle_location: Marker2D = $MuzzleLocation
+@onready var muzzle_left_location: Marker2D = $MuzzleLeftLocation
+@onready var muzzle_right_location: Marker2D = $MuzzleRightLocation
 @onready var gun_timer: Timer = $GunTimer
 @onready var shoot_sound_player: AudioStreamPlayer = $ShootSoundPlayer
 @onready var shield_sprite: Sprite2D = $ShieldSprite
